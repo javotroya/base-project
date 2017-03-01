@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,SAAS,CACP,gBAAgB,CAAC,OAAO,CAG1B,YAAY,CACV,gBAAgB,CAAC,OAAO,CAG1B,WAAW,CACT,UAAU,CAAC,MAAM,CAGnB,CAAC,CACC,MAAM,CAAC,CAAC,CACR,OAAO,CAAC,CAAC,CAEX,GAAG,CACD,WAAW,CAAC,GAAG",
+"sources": ["../styles/styles_letter.scss"],
+"names": [],
+"file": "styles_letter.css"
+}

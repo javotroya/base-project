@@ -1,0 +1,47 @@
+{
+  "name": "SB",
+  "version": "0.0.1",
+  "authors": [
+    "AmigoEmpresa"
+  ],
+  "description": "Solucion Base",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "backbone": "~1.1.2",
+    "underscore": "~1.7.0",
+    "momentjs": "~2.8.4",
+    "rivets-backbone-adapter": "~2.1.2",
+    "rivets": "~0.8.1",
+    "bootstrap-datepicker": "~1.3.0",
+    "bootstrap": "~3.3.1",
+    "underscore.string": "~3.0.2",
+    "typeahead.js": "~0.10.5",
+    "ckeditor-dev": "~4.5.3",
+    "jquery-validation": "~1.13.0",
+    "jquery.maskedinput": "~1.4.1",
+    "jquery-file-upload": "~9.10.4",
+    "jquery-nicescroll": "~3.6.8",
+    "ckeditor": "~4.5.4",
+    "select2": "https://github.com/select2/select2.git#3.5.4",
+    "uit.js": "*",
+    "codemirror": "^5.22.2",
+    "fontawesome": "~4.7.0",
+    "font-awesome": "4.7.0",
+    "moment": "^2.17.1",
+    "jquery-ui": "^1.12.1"
+  },
+  "devDependencies": {
+    "handlebars": "1.3.0"
+  }
+}

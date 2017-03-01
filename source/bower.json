@@ -1,6 +1,0 @@
-{
-  "name": "source",
-  "dependencies": {
-    "bootstrap": "^3.3.7"
-  }
-}

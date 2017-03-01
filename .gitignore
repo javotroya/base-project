@@ -19,8 +19,8 @@ application/logs/*
 /vendor/
 
 # compiled output
-/source/dist
-/source/tmp
+dist
+tmp
 
 # misc
 /.sass-cache
@@ -29,9 +29,9 @@ application/logs/*
 /libpeerconnection.log
 /npm-debug.log*
 /testem.log
-/source/node_modules/
-/source/bower_components/
-/source/.ember*
-/source/README*
+node_modules/
+bower_components/
+.ember*
+README*
 
 .idea
