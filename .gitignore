@@ -31,7 +31,6 @@ tmp
 /testem.log
 node_modules/
 bower_components/
-.ember*
 README*
-
 .idea
+.DS_Store

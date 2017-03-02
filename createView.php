@@ -19,11 +19,6 @@ $templateName = "$argv1".".jst.ejs";
 
 $filesExp = explode("/", $argv1);
 
-//// Verify if the path start with: source/views/ AND end with the rest of piece of path relative for the template.
-//if (substr(join('/', $filesExp), 0, 13) != 'source/views/' || strlen(substr(join('/', $filesExp), 13, strlen(join('/', $filesExp)))) == 0) {
-//    invalidSyntax();
-//}
-
 $listNameSpaceFile = explode("/", $argv1);
 
 // Remove the file name from the array

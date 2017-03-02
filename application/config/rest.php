@@ -110,7 +110,7 @@ $config['rest_realm'] = 'REST API';
 |           authorization key
 |
 */
-$config['rest_auth'] = FALSE;
+$config['rest_auth'] = 'session';
 
 /*
 |--------------------------------------------------------------------------
@@ -126,7 +126,7 @@ $config['rest_auth'] = FALSE;
 | Note: If 'rest_auth' is set to 'session' then change 'auth_source' to the name of the session variable
 |
 */
-$config['auth_source'] = 'ldap';
+$config['auth_source'] = 'identity';
 
 /*
 |--------------------------------------------------------------------------
@@ -200,7 +200,7 @@ $config['auth_library_function'] = '';
 */
 
 // ---Uncomment list line for the wildard unit test
-// $config['auth_override_class_method_http']['wildcard_test_cases']['*']['options'] = 'basic';
+ $config['auth_override_class_method_http']['auth']['login']['post'] = 'none';
 
 /*
 |--------------------------------------------------------------------------
@@ -513,7 +513,7 @@ $config['rest_ignore_http_accept'] = FALSE;
 | Hint: This is good for production environments
 |
 */
-$config['rest_ajax_only'] = FALSE;
+$config['rest_ajax_only'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------
@@ -523,7 +523,7 @@ $config['rest_ajax_only'] = FALSE;
 | Language file to load from the language directory
 |
 */
-$config['rest_language'] = 'english';
+$config['rest_language'] = 'spanish';
 
 /*
 |--------------------------------------------------------------------------

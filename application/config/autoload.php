@@ -58,7 +58,10 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array();
+$autoload['libraries'] = array('database', 'ion_auth', 'session');
+if(php_sapi_name() == 'cli'){
+	$autoload['libraries'] = [];
+}
 
 /*
 | -------------------------------------------------------------------

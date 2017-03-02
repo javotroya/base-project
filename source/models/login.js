@@ -1,13 +1,14 @@
 'use strict';
 App.Models.Login = App.Helpers.Model.extend({
-    url                 : 'api/authentication_controller_master/login',
+    url                 : 'auth/login',
     isLogin             : function(){
         let id = this.get('id');
         let sessionData = localStorage.getItem('currentSessionData');
         if(!_.isNull(sessionData)){
             let session = JSON.parse(sessionData);
             for(let key in session){
-                if(session[key] !== sessionStorage.getItem(key)){
+                if(session.hasOwnProperty(key) &&
+                   session[key] !== sessionStorage.getItem(key)){
                     sessionStorage.setItem(key, session[key]);
                 }
             }
@@ -19,21 +20,11 @@ App.Models.Login = App.Helpers.Model.extend({
         }else{
             if(App.loginModel.storage()){
                 let accessCollection = new App.Collections.Access();
-                if(!_.isUndefined(sessionStorage.getItem('loginId')) && !_.isNull(sessionStorage.getItem('loginId'))){
-                    App.loginModel.set('id', sessionStorage.getItem('loginId'));
+                if(!_.isUndefined(sessionStorage.getItem('id')) && !_.isNull(sessionStorage.getItem('id'))){
+                    App.loginModel.set('id', sessionStorage.getItem('id'));
                     App.loginModel.set('email', sessionStorage.getItem('email'));
                     App.loginModel.set('first', sessionStorage.getItem('first'));
-                    App.loginModel.set('middle', sessionStorage.getItem('middle'));
                     App.loginModel.set('last', sessionStorage.getItem('last'));
-                    App.loginModel.set('phone', sessionStorage.getItem('phone'));
-                    App.loginModel.set('isDA', parseInt(sessionStorage.getItem('isDA'), 10));
-                    App.loginModel.set('isHearingRep', parseInt(sessionStorage.getItem('isHearingRep'), 10));
-                    App.loginModel.set('isClientRep', parseInt(sessionStorage.getItem('isClientRep'), 10));
-                    App.loginModel.set('popAlerts', parseInt(sessionStorage.getItem('popAlerts'), 10));
-                    App.loginModel.set('firm', sessionStorage.getItem('firm'));
-                    if(sessionStorage.getItem('settings') !== 'undefined'){
-                        App.loginModel.set('settings', JSON.parse(sessionStorage.getItem('settings')));
-                    }
 
                     accessCollection.add(JSON.parse(sessionStorage.getItem('acl')));
                     App.loginModel.set('acl', accessCollection);
@@ -44,49 +35,40 @@ App.Models.Login = App.Helpers.Model.extend({
         }
     },
     logout              : function(){
-        $.post('api/authentication_controller_master/logout', {}, function(){
+        $.get('auth/logout', {}, function(){
             if(App.loginModel.storage()){
-                sessionStorage.removeItem('loginId');
+                sessionStorage.removeItem('id');
                 sessionStorage.removeItem('email');
                 sessionStorage.removeItem('first');
-                sessionStorage.removeItem('middle');
                 sessionStorage.removeItem('last');
-                sessionStorage.removeItem('phone');
                 sessionStorage.removeItem('acl');
-                sessionStorage.removeItem('isDA');
-                sessionStorage.removeItem('isClientRep');
-                sessionStorage.removeItem('isHearingRep');
-                sessionStorage.removeItem('popAlerts');
-                sessionStorage.removeItem('firm');
-                if(sessionStorage.getItem('settings') !== 'undefined'){
-                    sessionStorage.removeItem('settings');
-                }
             }
             $.removeCookie('ci_session');
             $.removeCookie('cf_csrf_cookie');
             App.loginModel.clear();
             localStorage.removeItem('currentSessionData');
             localStorage.clear();
-            window.location = window.location.origin + '/#sessions/login';
+            window.location = window.location.origin + '/#';
             window.location.reload();
-            clearInterval(App.AlertAjax);
-            App.AlertAjax = undefined;
-
         });
     },
     storage             : function(){
-        return Storage && sessionStorage ? true : false;
+        return !!(Storage && sessionStorage);
     },
     getFullNameWithEmail: function(){
         let fullName = this.get('last');
         if(!_.isEmpty(this.get('first'))){
             fullName += (!_.isEmpty(fullName) ? ', ' : '') + this.get('first');
         }
-        if(!_.isEmpty(this.get('middle'))){
-            fullName += (!_.isEmpty(fullName) ? ' ' : '') + this.get('middle');
-        }
         if(!_.isEmpty(this.get('email'))){
             fullName += (!_.isEmpty(fullName) ? ' ' : '') + this.get('email');
+        }
+        return fullName;
+    },
+    getFullName: function(){
+        let fullName = this.get('first');
+        if(!_.isEmpty(this.get('first'))){
+            fullName += (!_.isEmpty(fullName) ? ' ' : '') + this.get('last');
         }
         return fullName;
     },
@@ -130,31 +112,5 @@ App.Models.Login = App.Helpers.Model.extend({
         }
         let currentSession = JSON.stringify(sessionStorage);
         localStorage.setItem('currentSessionData', currentSession);
-    },
-    getSettingValue    : function(key){
-        if(this.get('settings')){
-            let setting = _.find(this.get('settings'), function(setting) {
-                return setting.key === key;
-            });
-            return setting.value;
-        }else{
-            return 1;
-        }
-    },
-    updatePopAlerts    : function(value){
-        if(value !== sessionStorage.getItem('popAlerts')){
-            sessionStorage.setItem('popAlerts', value);
-            this.set('popAlerts', value);
-            let currentSession = JSON.stringify(sessionStorage);
-            localStorage.setItem('currentSessionData', currentSession);
-        }
-    },
-    updateSettings     : function(value){
-        if(value !== sessionStorage.getItem('settings')){
-            this.set('settings', value);
-            sessionStorage.setItem('settings', JSON.stringify(value));
-            let currentSession = JSON.stringify(sessionStorage);
-            localStorage.setItem('currentSessionData', currentSession);
-        }
     }
 });

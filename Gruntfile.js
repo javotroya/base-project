@@ -90,12 +90,6 @@ module.exports = function(grunt){
                     src   : ['main.scss'], //['**/*.scss'],
                     dest  : 'source/prod',
                     ext   : '.css'
-                }, {
-                    expand: true,
-                    cwd   : 'source/styles',
-                    src   : ['styles_letter.scss', 'common.scss'], //['**/*.scss'],
-                    dest  : 'source/prod',
-                    ext   : '.css'
                 }]
             }
         },
@@ -119,7 +113,7 @@ module.exports = function(grunt){
                 tasks: ['jshint:ae']
             },
             aecss        : {
-                files: ['source/styles/*.scss'],
+                files: ['source/styles/**/*.scss'],
                 tasks: ['sass:ae'],
             },
             aetemplate   : {
@@ -263,6 +257,5 @@ module.exports = function(grunt){
     // Default task(s).
     // grunt.registerTask('default', ['sass:ae', 'sass:admin', 'jshint', 'jst', 'watch']);
     grunt.registerTask('default', ['sass:ae', 'jshint:ae', 'jst:ae', 'watch']);
-    grunt.registerTask('admin', ['sass:admin', 'jshint:admin', 'jst:admin', 'watch']);
     grunt.registerTask('prod', ['jst', 'babel', 'uglify', 'cssmin', 'sass:prod', 'compress']);
 };

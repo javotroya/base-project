@@ -9,8 +9,7 @@ $cache_hash = "2017.02.26-21.57.58"; ?>
     <meta charset="utf-8">
     <title>AmigoEmpresa</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon"
-    / >
+    <link rel="shortcut icon" href="img/favicon.png" type="image/png">
 	  <?php if ( ENVIRONMENT == 'development' ): ?>
     <!-- JAVASCRIPT LIBRARIES -->
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -53,18 +52,20 @@ $cache_hash = "2017.02.26-21.57.58"; ?>
     <link rel="stylesheet" href="bower_components/jquery-highlighttextarea/jquery.highlighttextarea.min.css">
     <link href="bower_components/select2/select2.css" rel="stylesheet"/>
     <link href="bower_components/select2/select2-bootstrap.css" rel="stylesheet"/>
-    <link href="styles/main.css" rel="stylesheet">
     <link href="source/theme/css/AdminLTE.min.css" rel="stylesheet">
     <link href="source/theme/css/_all-skins.min.css" rel="stylesheet">
+    <link href="source/theme/plugins/iCheck/all.css" rel="stylesheet">
+    <link href="styles/main.css" rel="stylesheet">
   </head>
-  <body class="hold-transition skin-blue sidebar-mini">
-  <div class="wrapper">
+  <body class="<?php echo ( $this->ion_auth->logged_in() ) ? 'hold-transition skin-blue sidebar-mini' : 'hold-transition login-page'; ?>">
+  <div class="wrapper hidden">
     <header class="main-header"></header>
     <aside class="main-sidebar"></aside>
     <div class="content-wrapper"></div>
     <footer class="main-footer"></footer>
     <div class="control-sidebar-bg"></div>
   </div>
+  <div class="login-box hidden"></div>
   </body>
   <script type="text/javascript" src="ajax_setup.js"></script>
   <script type="text/javascript" src="application.js"></script>
@@ -80,22 +81,26 @@ $cache_hash = "2017.02.26-21.57.58"; ?>
   ?>
   <script type="text/javascript" src="singletons.js"></script>
   <script type="text/javascript" src="source/theme/js/app.min.js"></script>
+  <script type="text/javascript" src="source/theme/plugins/iCheck/icheck.min.js"></script>
   <?php else: //production files. ?>
-    <script type="text/javascript" src="prod/libs.js?v=<?php echo $cache_hash; ?>"></script>
-    <link href="prod/libs.css?v=' . $cache_hash . '" rel="stylesheet">
+    <script type="text/javascript" src="source/prod/libs.js?v=<?php echo $cache_hash; ?>"></script>
+    <link href="source/prod/libs.css?v=<?php echo $cache_hash; ?>" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link href="prod/main.css?v=<?php echo $cache_hash; ?>" rel="stylesheet">
-
-    <link rel="stylesheet" id="custom_tooltip" href="api/general_controller/get_css/custom_tooltip.css">
+    <link href="source/prod/main.css?v=<?php echo $cache_hash; ?>" rel="stylesheet">
     </head>
-    <body class="hold-transition skin-blue sidebar-mini">
-    <div class="wrapper">
+    <body class="<?php echo ( $this->ion_auth->logged_in() ) ? 'hold-transition skin-blue sidebar-mini' : 'hold-transition login-page'; ?>">
+    <div class="wrapper hidden">
       <header class="main-header"></header>
+      <aside class="main-sidebar"></aside>
+      <div class="content-wrapper"></div>
+      <footer class="main-footer"></footer>
+      <div class="control-sidebar-bg"></div>
     </div>
+    <div class="login-box hidden"></div>
     </body>
 
     <!-- Base Definition -->
-    <script type="text/javascript" src="prod/app.js?v=' . $cache_hash . '"></script>';
+    <script type="text/javascript" src="source/prod/app.js?v=<?php echo $cache_hash; ?>"></script>';
   <?php endif; ?>
   <!-- Start Application -->
   <script type="text/javascript">
