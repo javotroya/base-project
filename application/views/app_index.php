@@ -1,6 +1,6 @@
 <?php defined( 'BASEPATH' ) OR exit( 'No direct script access allowed' );
 $serverName = $_SERVER['SERVER_NAME'];
-$cache_hash = "2017.02.26-21.57.58"; ?>
+$cache_hash = "2017.02.26-21.57.88"; ?>
 
 
   <!DOCTYPE html>
@@ -9,7 +9,7 @@ $cache_hash = "2017.02.26-21.57.58"; ?>
     <meta charset="utf-8">
     <title>AmigoEmpresa</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="img/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="/img/favicon.png" type="image/png">
 	  <?php if ( ENVIRONMENT == 'development' ): ?>
     <!-- JAVASCRIPT LIBRARIES -->
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -18,7 +18,7 @@ $cache_hash = "2017.02.26-21.57.58"; ?>
     <script type="text/javascript" src="bower_components/underscore.string/dist/underscore.string.js"></script>
     <script type="text/javascript" src="bower_components/jquery-cookie/jquery.cookie.js"></script>
     <script type="text/javascript" src="bower_components/backbone/backbone.js"></script>
-    <script type="text/javascript" src="bower_components/cf_shared_libs/typeahead.bundle.js"></script>
+    <script type="text/javascript" src="source/helpers/typeahead.bundle.js"></script>
     <script type="text/javascript" src="bower_components/rivets/dist/rivets.bundled.min.js"></script>
 
     <script type="text/javascript" src="bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
@@ -69,8 +69,8 @@ $cache_hash = "2017.02.26-21.57.58"; ?>
   </body>
   <script type="text/javascript" src="ajax_setup.js"></script>
   <script type="text/javascript" src="application.js"></script>
-  <script type="text/javascript" src="bower_components/cf_shared_libs/helpers/util_rivets.js"></script>
-  <script type="text/javascript" src="bower_components/cf_shared_libs/helpers/util_casefriend.js"></script>
+  <script type="text/javascript" src="source/helpers/util_rivets.js"></script>
+  <script type="text/javascript" src="source/helpers/util.js"></script>
 
   <script type="text/javascript" src="source/templates.js"></script>
   <?php $path = FCPATH;
@@ -104,14 +104,12 @@ $cache_hash = "2017.02.26-21.57.58"; ?>
   <?php endif; ?>
   <!-- Start Application -->
   <script type="text/javascript">
-      App.CacheHash  = "<?php echo $cache_hash; ?>";
-      let MainRouter = new App.Router.Main();
       Backbone.history.start({pushState: false});
       window.customRivets = true;
   </script>
   </html>
 
-<?php function ReadDirAndPrintJsFiles( $folder, $showHeaderFolder = true ) {
+<?php function ReadDirAndPrintJsFiles( $folder, $showHeaderFolder = false ) {
 	$path = FCPATH;
 	if ( $showHeaderFolder ) {
 		echo "\n\t<!-- " . $folder . " -->";
@@ -125,7 +123,7 @@ $cache_hash = "2017.02.26-21.57.58"; ?>
 					ReadDirAndPrintJsFiles( $pwd, false );
 				} else {
 					if ( ! ( strpos( $entry, '.jst.ejs' ) > 0 ) ) {
-						echo "\n\t<script src='" . str_replace( $path, '', $pwd ) . "'></script>";
+						echo "\n\t<script src='" . str_replace( $path, '', $pwd ) . "'></script>\n";
 					}
 				}
 			}

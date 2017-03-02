@@ -9,13 +9,13 @@ return __p
 
 this["App"]["Templates"]["baseHeader"] = function(data) {
 var __t, __p = '', __e = _.escape;
-__p += '<a href="#" class="logo">\n    <span class="logo-mini"><b>A</b>E</span>\n    <span class="logo-lg"><b>Amigo</b>Empresa</span>\n</a>\n<nav class="navbar navbar-static-top" role="navigation">\n    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">\n        <span class="sr-only">Toggle navigation</span>\n    </a>\n    <div class="navbar-custom-menu">\n        <ul class="nav navbar-nav">\n            <li class="dropdown user user-menu">\n                <a href="#" class="dropdown-toggle" data-toggle="dropdown">\n                    <!-- The user image in the navbar-->\n                    <img src="img/users/1.png" class="user-image" alt="User Image">\n                    <!-- hidden-xs hides the username on small devices so only the image appears. -->\n                    <span class="hidden-xs">{model.getFullName}</span>\n                </a>\n                <ul class="dropdown-menu">\n                    <!-- The user image in the menu -->\n                    <li class="user-header">\n                        <img src="img/users/1.png" class="img-circle" alt="User Image">\n\n                        <p>\n                            {model.getFullName}\n                            <small>{model:role}</small>\n                        </p>\n                    </li>\n                    <!-- Menu Footer-->\n                    <li class="user-footer">\n                        <div class="pull-left">\n                            <a href="#profile" class="btn btn-default btn-flat">Mi Perfil</a>\n                        </div>\n                        <div class="pull-right">\n                            <a href="#session/logout" class="btn btn-default btn-flat">Cerrar Sesión</a>\n                        </div>\n                    </li>\n                </ul>\n            </li>\n            <!-- Control Sidebar Toggle Button -->\n            <li>\n                <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>\n            </li>\n        </ul>\n    </div>\n</nav>\n';
+__p += '<a href="#" class="logo">\n    <span class="logo-mini"><b>A</b>E</span>\n    <span class="logo-lg"><b>Amigo</b>Empresa</span>\n</a>\n<nav class="navbar navbar-static-top" role="navigation">\n    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">\n        <span class="sr-only">Toggle navigation</span>\n    </a>\n    <div class="navbar-custom-menu">\n        <ul class="nav navbar-nav">\n            <li class="dropdown user user-menu">\n                <a href="#" class="dropdown-toggle" data-toggle="dropdown">\n                    <!-- The user image in the navbar-->\n                    <img src="/img/users/1.png" class="user-image" alt="User Image">\n                    <!-- hidden-xs hides the username on small devices so only the image appears. -->\n                    <span class="hidden-xs">{model.getFullName}</span>\n                </a>\n                <ul class="dropdown-menu">\n                    <!-- The user image in the menu -->\n                    <li class="user-header">\n                        <img src="/img/users/1.png" class="img-circle" alt="User Image">\n\n                        <p>\n                            {model.getFullName}\n                            <small>{model:role}</small>\n                        </p>\n                    </li>\n                    <!-- Menu Footer-->\n                    <li class="user-footer">\n                        <div class="pull-left">\n                            <a href="#profile" class="btn btn-default btn-flat">Mi Perfil</a>\n                        </div>\n                        <div class="pull-right">\n                            <a href="#session/logout" class="btn btn-default btn-flat">Cerrar Sesión</a>\n                        </div>\n                    </li>\n                </ul>\n            </li>\n            <!-- Control Sidebar Toggle Button -->\n            <li>\n                <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>\n            </li>\n        </ul>\n    </div>\n</nav>\n';
 return __p
 };
 
 this["App"]["Templates"]["baseMainSidebar"] = function(data) {
 var __t, __p = '', __e = _.escape;
-__p += '<div class="user-panel">\n    <div class="pull-left image">\n        <img src="img/users/1.png" class="img-circle" alt="User Image">\n    </div>\n    <div class="pull-left info">\n        <p>{model.getFullName}</p>\n        <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>\n    </div>\n</div>\n<ul class="sidebar-menu">\n    <li class="header">Aplicación</li>\n    <li><a href="#recruitment"><i class="fa fa-file-text-o"></i> <span>Reclutamiento</span></a></li>\n    <li class="header">Administración</li>\n    <li><a href="#users"><i class="fa fa-users"></i> <span>Usuarios</span></a></li>\n</ul>';
+__p += '<div class="user-panel">\n    <div class="pull-left image">\n        <img src="/img/users/1.png" class="img-circle" alt="User Image">\n    </div>\n    <div class="pull-left info">\n        <p>{model.getFullName}</p>\n        <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>\n    </div>\n</div>\n<ul class="sidebar-menu">\n    <li class="header">Aplicación</li>\n    <li><a href="#recruitment"><i class="fa fa-file-text-o"></i> <span>Reclutamiento</span></a></li>\n    <li class="header">Administración</li>\n    <li><a href="#users"><i class="fa fa-users"></i> <span>Usuarios</span></a></li>\n</ul>';
 return __p
 };
 
@@ -37,15 +37,9 @@ __p += '<section class="content-header">\n    <h1>\n        {header}\n        <s
 return __p
 };
 
-this["App"]["Templates"]["testHelp"] = function(data) {
+this["App"]["Templates"]["usersEdit"] = function(data) {
 var __t, __p = '', __e = _.escape;
-__p += '<div>View for help</div>';
-return __p
-};
-
-this["App"]["Templates"]["testIndex"] = function(data) {
-var __t, __p = '', __e = _.escape;
-__p += '<section class="content-header">\n    <h1>\n        Page Header\n        <small>Optional description</small>\n    </h1>\n    <ol class="breadcrumb">\n        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>\n        <li class="active">Here</li>\n    </ol>\n</section>\n\n<!-- Main content -->\n<section class="content">\n\n    <!-- Your Page Content Here -->\n\n</section>\n';
+__p += '<div>View for edit</div>';
 return __p
 };
 

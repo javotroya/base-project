@@ -19,7 +19,7 @@ application/logs/*
 /vendor/
 
 # compiled output
-dist
+source/prod
 tmp
 
 # misc

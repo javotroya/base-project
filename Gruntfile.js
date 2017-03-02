@@ -34,33 +34,17 @@ module.exports = function(grunt){
             }
         },
         jshint  : {
-            admin: {
-                src    : ['Gruntfile.js',
-                          'bower_components/ae_shared_libs/helpers/**/*.js',
-                          'admin_front_end/views/**/*.js',
-                          'admin_front_end/views/**/**/*.js',
-                          'admin_front_end/routes/**/*.js',
-                          'admin_front_end/models/**/*.js',
-                          'admin_front_end/collections/**/*.js',
-                          'admin_front_end/ajax_setup.js',
-                          'admin_front_end/singletons.js',
-                          'admin_front_end/ajax_setup.js'],
-                options: {
-                    jshintrc: '.jshintrc',
-                    reporter: require('jshint-stylish')
-                }
-            },
             ae   : {
                 src    : ['Gruntfile.js',
-                          'bower_components/ae_shared_libs/helpers/**/*.js',
+                          'source/helpers/util.js',
+                          'source/helpers/util_rivets.js',
                           'source/views/**/*.js',
                           'source/views/**/**/*.js',
                           'source/routes/**/*.js',
                           'source/models/**/*.js',
                           'source/collections/**/*.js',
-                          'source/ajax_setup.js',
-                          'source/singletons.js',
-                          'source/ajax_setup.js'],
+                          'singletons.js',
+                          'ajax_setup.js'],
                 options: {
                     jshintrc: '.jshintrc',
                     reporter: require('jshint-stylish')
@@ -102,14 +86,15 @@ module.exports = function(grunt){
             },
             aejs         : {
                 files: ['Gruntfile.js',
-                        'bower_components/ae_shared_libs/helpers/**/*.js',
+                        'source/helpers/**/*.js',
                         'source/views/**/*.js',
                         'source/views/**/**/*.js',
                         'source/routes/**/*.js',
                         'source/models/**/*.js',
                         'source/collections/**/*.js',
-                        'source/singletons.js',
-                        'source/ajax_setup.js'],
+                        'source/theme/**.*.js',
+                        'singletons.js',
+                        'ajax_setup.js'],
                 tasks: ['jshint:ae']
             },
             aecss        : {
@@ -130,14 +115,18 @@ module.exports = function(grunt){
                 files: [{
                     'expand': true,
                     'src'   : ['bower_components/uit.js/uit.js',
-                               'source/ajax_setup.js',
-                               'source/application.js',
-                               'bower_components/ae_shared_libs/helpers/util_rivets.js',
+                               'ajax_setup.js',
+                               'application.js',
+                               'source/theme/js/app.min.js',
+                               'source/theme/plugins/iCheck/icheck.js',
+                               'source/helpers/util.js',
+                               'source/helpers/util_rivets.js',
                                'source/models/**/*.js',
                                'source/collections/**/*.js',
                                'source/views/**/*.js',
                                'source/routes/**/*.js',
-                               'source/singletons.js'],
+                               'singletons.js'
+                    ],
                     'dest'  : 'source/prod/js-compiled/',
                     'ext'   : '.js'
                 }]
@@ -163,7 +152,7 @@ module.exports = function(grunt){
                     'bower_components/underscore.string/dist/underscore.string.js',
                     'bower_components/jquery-cookie/jquery.cookie.js',
                     'bower_components/backbone/backbone.js',
-                    'bower_components/ae_shared_libs/typeahead.bundle.js',
+                    'source/typeahead.bundle.js',
                     'bower_components/rivets/dist/rivets.bundled.min.js',
                     'bower_components/jquery-validation/dist/jquery.validate.min.js',
                     'bower_components/jquery-validation/dist/additional-methods.min.js',
@@ -180,25 +169,24 @@ module.exports = function(grunt){
                     'bower_components/bootstrap-submenu/dist/js/bootstrap-submenu.min.js',
                     'bower_components/jquery-highlighttextarea/jquery.highlighttextarea.min.js',
                     'bower_components/clipboard/clipboard.min.js',
-                    'source/theme/js/app.min.js'
                 ],
                 dest: 'source/prod/libs.js'
             },
             js         : {
                 src : [
                     'bower_components/uit.js/uit.js',
-                    'source/prod/js-compiled/source/ajax_setup.js',
-                    'source/prod/js-compiled/source/application.js',
-                    'bower_components/ae_shared_libs/helpers/ckeditor/styles/*.js',
-                    'bower_components/ae_shared_libs/helpers/ckeditor/plugins/*.js',
-                    'bower_components/ae_shared_libs/helpers/util_casefriend.js',
+                    'source/prod/js-compiled/ajax_setup.js',
+                    'source/prod/js-compiled/application.js',
+                    'source/prod/js-compiled/source/theme/js/app.js',
+                    'source/prod/js-compiled/source/theme/plugins/iCheck/icheck.js',
+                    'source/prod/js-compiled/source/helpers/util.js',
                     'source/prod/js-compiled/source/helpers/util_rivets.js',
                     'source/templates.js',
                     'source/prod/js-compiled/source/models/**/*.js',
                     'source/prod/js-compiled/source/collections/**/*.js',
                     'source/prod/js-compiled/source/views/**/*.js',
                     'source/prod/js-compiled/source/routes/**/*.js',
-                    'source/singletons.js'
+                    'source/prod/js-compiled/singletons.js',
                 ],
                 dest: 'source/prod/app.js'
             }
@@ -223,7 +211,8 @@ module.exports = function(grunt){
                         'bower_components/bootstrap-submenu/dist/css/bootstrap-submenu.min.css',
                         'bower_components/jquery-highlighttextarea/jquery.highlighttextarea.min.css',
                         'source/theme/css/AdminLTE.min.css',
-                        'source/theme/css/_all-skins.min.css'
+                        'source/theme/css/_all-skins.min.css',
+                        'source/theme/plugins/iCheck/all.css'
                     ]
                 }
             }

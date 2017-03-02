@@ -7,7 +7,7 @@ if (!is_cli()) {
 	exit('Only CLI access allowed');
 }
 
-class Console extends CI_Controller {
+class Generate extends CI_Controller {
 	private $help_request;
 
 	public function __construct() {
@@ -16,16 +16,15 @@ class Console extends CI_Controller {
 		$this->help_request = ['h', '-h', '--h', '--help', '-help', 'help'];
 	}
 
-	public function generate($generate) {
-		global $argv, $argc;
-		switch ($generate) {
-			case 'view':
-				$this->_generate_view($argv[4]);
-				break;
+	public function generate($generate = null) {
+		global $argv;
+		if (!isset($argv[4]) || $generate == null) {
+			$this->cli_colors->box('ALERTA', 'Debes colocar un argumento válido', 'red');
+			exit;
 		}
 	}
 
-	private function _generate_view($value) {
+	public function view($value) {
 		$path = FCPATH . 'source/views/';
 		if (in_array($value, $this->help_request)) {
 			$help_text = $this->cli_colors->string("Use este script para generar vistas relativas a {$path}", 'blue', null, true);
@@ -99,7 +98,7 @@ EOF;
 		// ClassName of view
 		$view = lcfirst($list_name_space_file[ count($list_name_space_file) - 1 ]);
 
-		$file = fopen($file_name, "w") or exit("Unable to create view file!");
+		$file = fopen($file_name, "w") or exit('No se pudo crear el archivo');
 
 		// Name Space of template
 		$template_path_relative = lcfirst(join('', $list_name_space_file));
@@ -121,16 +120,56 @@ EOF;
 
 		fwrite($file, $file_text);
 		fclose($file);
-		$file_template = fopen("$template_name", "w") or exit("Unable to create template file!");
+		$file_template = fopen("$template_name", "w") or exit('No se pudo crear el archivo');
 		fwrite($file_template, "<div>View for $view</div>");
 		fclose($file_template);
 
 		if (count($folder_created) > 0) {
-			$this->cli_colors->string("The following directories have been created:", 'blue');
+			$this->cli_colors->string('Los siguientes directorios fueron creados:', 'blue');
 			foreach ($folder_created as $path) {
 				$this->cli_colors->string("\t- $path", 'brown');
 			}
 		}
-		$this->cli_colors->string("The view $view has been created successfully!.", 'blue');
+		$this->cli_colors->string("La vista $view fue creada con exito!", 'blue');
+	}
+
+	public function route($value) {
+		$path = FCPATH . 'source/routes/';
+		if (in_array($value, $this->help_request)) {
+			$help_text = $this->cli_colors->string("Use este script para generar rutas relativas a {$path}", 'blue', null, true);
+			$help_text .= $this->cli_colors->string('Ejemplo:', 'blue', null, true);
+			$help_text .= $this->cli_colors->string('php index.php console generate route users', 'blue', null, true);
+			$help_text .= $this->cli_colors->string('Solo se pueden crear rutas directamente en el directorio routes. No se permiten rutas anidadas.', 'blue', null, true);
+			$this->cli_colors->box('php console generate route', $help_text, 'red');
+			exit;
+		}
+
+		$file_exp = explode('/', $value);
+		if(count($file_exp) > 1){
+			$this->cli_colors->string('No se permiten rutas hijas o anidadas.', 'red');
+			exit;
+		}
+
+		$capital_route_name = ucwords(strtolower($value));
+		$route_name = strtolower($value);
+		$file_name = "{$path}{$route_name}.js";
+		$file = fopen($file_name, "w") or exit('No se pudo crear el archivo.');
+		$route_file_content = <<<EOF
+'use strict';
+App.Router.$capital_route_name = App.Helpers.Router.extend({
+    className   : '$capital_route_name',
+    routes      : {}
+});
+
+let {$capital_route_name}Router = new App.Router.$capital_route_name();
+{$capital_route_name}Router.on('route', function (actions) {
+    if(App.Const.debug){
+        console.log( actions );
+    }
+});
+EOF;
+		fwrite($file, $route_file_content);
+		fclose($file);
+		$this->cli_colors->string("Se creo la ruta $capital_route_name correctamente", 'blue');
 	}
 }

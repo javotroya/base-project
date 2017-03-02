@@ -1,5 +1,6 @@
 var App = {
     Const      : {
+        debug           : false,
         limitTypeahead  : 9999,
         likeSearchOffset: 50
     },
@@ -11,5 +12,5 @@ var App = {
     Models     : {},
     Collections: {},
     Router     : {},
-    siteKey    : '6LekwwYTAAAAAPCBtHIJwNg4S0xQE5T2DAh0y0OE'
+    siteKey    : ''
 };
