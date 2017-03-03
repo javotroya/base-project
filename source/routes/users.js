@@ -5,7 +5,9 @@ App.Router.Users = App.Helpers.Router.extend({
         'users' : 'list'
     },
     list : function(){
-        console.log('users');
+        let collection = new App.Collections.Users(),
+            view = new App.Views.Users.List({collection:collection});
+        collection.fetch();
     }
 });
 

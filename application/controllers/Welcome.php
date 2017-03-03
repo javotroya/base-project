@@ -22,6 +22,11 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->helper('url');
 
-		$this->load->view('app_index');
+		if(ENVIRONMENT == 'development'){
+			$this->load->helper('file_helper');
+			$this->load->view('dev_index');
+		}
+		elseif(ENVIRONMENT == 'production')
+			$this->load->view('app_index');
 	}
 }

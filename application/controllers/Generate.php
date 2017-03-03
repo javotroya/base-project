@@ -133,20 +133,41 @@ EOF;
 		$this->cli_colors->string("La vista $view fue creada con exito!", 'blue');
 	}
 
-	public function route($value) {
-		$path = FCPATH . 'source/routes/';
+	public function model($value){
+		$this->resource('models', $value);
+	}
+
+	public function collection($value, $model = null){
+		$this->resource('collections', $value, $model);
+	}
+
+	public function route($value){
+		$this->resource('routes', $value);
+	}
+
+	public function resource($route = 'routes', $value, $collection_model = null) {
+		$path = FCPATH . "source/$route/";
+		$function = 'route';
+		switch($route){
+			case 'models':
+				$function = 'model';
+				break;
+			case 'collections':
+				$function = 'collection';
+				break;
+		}
 		if (in_array($value, $this->help_request)) {
-			$help_text = $this->cli_colors->string("Use este script para generar rutas relativas a {$path}", 'blue', null, true);
+			$help_text = $this->cli_colors->string("Use este script para generar {$route} relativas a {$path}", 'blue', null, true);
 			$help_text .= $this->cli_colors->string('Ejemplo:', 'blue', null, true);
-			$help_text .= $this->cli_colors->string('php index.php console generate route users', 'blue', null, true);
-			$help_text .= $this->cli_colors->string('Solo se pueden crear rutas directamente en el directorio routes. No se permiten rutas anidadas.', 'blue', null, true);
-			$this->cli_colors->box('php console generate route', $help_text, 'red');
+			$help_text .= $this->cli_colors->string("php console generate $function users", 'blue', null, true);
+			$help_text .= $this->cli_colors->string("Solo se pueden crear $route directamente en el directorio $route. No se permiten $route anidadas.", 'blue', null, true);
+			$this->cli_colors->box("php console generate $function", $help_text, 'red');
 			exit;
 		}
 
 		$file_exp = explode('/', $value);
 		if(count($file_exp) > 1){
-			$this->cli_colors->string('No se permiten rutas hijas o anidadas.', 'red');
+			$this->cli_colors->string("No se permiten $route hijas o anidadas.", 'red');
 			exit;
 		}
 
@@ -154,7 +175,9 @@ EOF;
 		$route_name = strtolower($value);
 		$file_name = "{$path}{$route_name}.js";
 		$file = fopen($file_name, "w") or exit('No se pudo crear el archivo.');
-		$route_file_content = <<<EOF
+		$route_file_content = 'Empty file';
+		if($route == 'routes') {
+			$route_file_content = <<<EOF
 'use strict';
 App.Router.$capital_route_name = App.Helpers.Router.extend({
     className   : '$capital_route_name',
@@ -168,8 +191,38 @@ let {$capital_route_name}Router = new App.Router.$capital_route_name();
     }
 });
 EOF;
+		} elseif ($route == 'models'){
+			$route_file_content = <<<EOF
+'use strict';
+App.Models.$capital_route_name = App.Helpers.Model.extend({
+    idAttribute   : '',
+    url      : function(){ return '/'; }
+});
+EOF;
+		} elseif ($route == 'collections'){
+			$collection_model = ucwords(strtolower($collection_model));
+			$model = $collection_model ? "App.Models.$collection_model" : 'App.Models';
+			$route_file_content = <<<EOF
+'use strict';
+App.Collections.$capital_route_name = App.Helpers.Collection.extend({
+    url      : function(){ return '/'; },
+    model    : $model
+});
+EOF;
+		}
 		fwrite($file, $route_file_content);
 		fclose($file);
-		$this->cli_colors->string("Se creo la ruta $capital_route_name correctamente", 'blue');
+		$this->cli_colors->string("Se creo el $route $capital_route_name correctamente", 'blue');
+	}
+
+	public function component($value = '', $plural = ''){
+		if(empty($value) || empty($plural)){
+			$this->cli_colors->string('Uso: php console generate component nombre_singular nombre_plural', 'red');
+			exit;
+		}
+		$this->view($value);
+		$this->model($value);
+		$this->collection($plural, $value);
+		$this->route($value);
 	}
 }
