@@ -33,18 +33,24 @@ return __p
 
 this["App"]["Templates"]["sharedContentHeader"] = function(data) {
 var __t, __p = '', __e = _.escape;
-__p += '<section class="content-header">\n    <h1>\n        {header}\n        <small rv-if="description">{description}</small>\n    </h1>\n</section>';
+__p += '<h1>\n    {header}\n    <small rv-if="description">{description}</small>\n</h1>\n';
+return __p
+};
+
+this["App"]["Templates"]["task"] = function(data) {
+var __t, __p = '', __e = _.escape;
+__p += '<div>View for task</div>';
 return __p
 };
 
 this["App"]["Templates"]["usersEdit"] = function(data) {
 var __t, __p = '', __e = _.escape;
-__p += '<div>View for edit</div>';
+__p += '<div class="modal-content">\n    <form role="form" class="form-horizontal" novalidate>\n        <div class="modal-header">\n            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n            <h4 class="modal-title"><span class="fa fa-user"></span> Editar Usuario</h4>\n        </div>\n        <div class="modal-body">\n            <div class="hidden" name="message"></div>\n            <div class="form-group col-md-4">\n                <label for="first_name">Nombre(s)</label>\n            </div>\n            <div class="col-md-8">\n                <input type="text" class="form-control" id="first_name" name="first_name" rv-value="model:first_name < :first_name"  required>\n            </div>\n            <div class="clearfix"></div>\n            <div class="form-group col-md-4">\n                <label for="last_name">Apellido(s)</label>\n            </div>\n            <div class="col-md-8">\n                <input type="text" class="form-control" id="last_name" name="last_name" rv-value="model:last_name < :last_name" required>\n            </div>\n            <div class="clearfix"></div>\n            <div class="form-group col-md-4">\n                <label for="email">Email</label>\n            </div>\n            <div class="col-md-8">\n                <input type="email" class="form-control" id="email" name="email" rv-value="model:email < :email" required>\n            </div>\n            <div class="clearfix"></div>\n        </div>\n        <div class="modal-footer">\n            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>\n            <button type="submit" class="btn btn-primary"><span class="fa fa-save"></span> Guardar</button>\n        </div>\n    </form>\n</div>\n';
 return __p
 };
 
 this["App"]["Templates"]["usersList"] = function(data) {
 var __t, __p = '', __e = _.escape;
-__p += '<div>View for list</div>';
+__p += '<section class="content">\n    <div class="row">\n        <div class="col-md-12">\n            <div class="box">\n                <div class="box-header with-border">\n                    <h3 class="box-title">Administración de Usuarios</h3>\n                </div>\n                <div class="box-body">\n                    <table class="table table-bordered table-striped">\n                        <thead>\n                        <tr>\n                            <th><input type="checkbox" class="select-all"></th>\n                            <th>Nombre</th>\n                            <th>Apellido</th>\n                            <th>Email</th>\n                            <th>Usuario</th>\n                            <th>Ultimo Ingreso</th>\n                        </tr>\n                        </thead>\n                        <tbody rv-if="collection.length < .length">\n                        <tr rv-each-user="collection.models < .models" data-toggle="edit-user" rv-data-user-id="user:id" class="cursor-pointer">\n                            <th><input type="checkbox" rv-value="user:id"></th>\n                            <td>{user:first_name}</td>\n                            <td>{user:last_name}</td>\n                            <td>{user:email}</td>\n                            <td>{user:username}</td>\n                            <td>{user:last_login}</td>\n                        </tr>\n                        </tbody>\n                    </table>\n                </div>\n                <div class="box-footer clearfix"></div>\n            </div>\n        </div>\n    </div>\n</section>';
 return __p
 };

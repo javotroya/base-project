@@ -118,7 +118,7 @@ module.exports = function(grunt){
                                'ajax_setup.js',
                                'application.js',
                                'source/theme/js/app.min.js',
-                               'source/theme/plugins/iCheck/icheck.js',
+                               'source/theme/plugins/**/*.js',
                                'source/helpers/util.js',
                                'source/helpers/util_rivets.js',
                                'source/models/**/*.js',
@@ -178,7 +178,7 @@ module.exports = function(grunt){
                     'source/prod/js-compiled/ajax_setup.js',
                     'source/prod/js-compiled/application.js',
                     'source/prod/js-compiled/source/theme/js/app.js',
-                    'source/prod/js-compiled/source/theme/plugins/iCheck/icheck.js',
+                    'source/prod/js-compiled/source/theme/plugins/**/*.js',
                     'source/prod/js-compiled/source/helpers/util.js',
                     'source/prod/js-compiled/source/helpers/util_rivets.js',
                     'source/templates.js',
@@ -212,7 +212,8 @@ module.exports = function(grunt){
                         'bower_components/jquery-highlighttextarea/jquery.highlighttextarea.min.css',
                         'source/theme/css/AdminLTE.min.css',
                         'source/theme/css/_all-skins.min.css',
-                        'source/theme/plugins/iCheck/all.css'
+                        'source/theme/plugins/iCheck/all.css',
+                        'source/theme/plugins/data-tables/dataTables.bootstrap.css',
                     ]
                 }
             }

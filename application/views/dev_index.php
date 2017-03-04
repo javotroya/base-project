@@ -45,6 +45,7 @@
   <link href="source/theme/css/AdminLTE.min.css" rel="stylesheet">
   <link href="source/theme/css/_all-skins.min.css" rel="stylesheet">
   <link href="source/theme/plugins/iCheck/all.css" rel="stylesheet">
+  <link href="source/theme/plugins/data-tables/dataTables.bootstrap.css" rel="stylesheet">
   <link href="styles/main.css" rel="stylesheet">
 </head>
 <body class="<?php echo ($this->ion_auth->logged_in()) ? 'hold-transition skin-blue sidebar-mini' : 'hold-transition login-page'; ?>">
@@ -71,6 +72,8 @@ read_and_print_js("{$path}source/routes"); ?>
 <script type="text/javascript" src="singletons.js"></script>
 <script type="text/javascript" src="source/theme/js/app.min.js"></script>
 <script type="text/javascript" src="source/theme/plugins/iCheck/icheck.min.js"></script>
+<script type="text/javascript" src="source/theme/plugins/data-tables/jquery.dataTables.js"></script>
+<script type="text/javascript" src="source/theme/plugins/data-tables/dataTables.bootstrap.js"></script>
 <!-- Start Application -->
 <script type="text/javascript">
     Backbone.history.start({pushState: false});

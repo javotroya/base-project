@@ -263,9 +263,10 @@ App.Helpers.Toast = Uit.View.extend({
     },
     render            : function(){
         var template = _.template(['<div class="toast alert alert-<%= classType %>" role="alert">',
-                                   '<span class="pull-left">',
-                                   '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span></span>',
-                                   '<p><%= message %></p>',
+                                       '<span class="pull-left">',
+                                        '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>',
+                                       '</span>',
+                                       '<p><%= message %></p>',
                                    '</div>'].join(''));
         this.$el.html(template(this.options));
 
@@ -494,6 +495,90 @@ App.Helpers.TypeaheadFormatter = function(obj){
     }
 };
 
+App.Helpers.addMask        = Uit.addMask;
+App.Helpers.cleanView      = Uit.cleanView;
+App.Helpers.Model          = Uit.Model.extend({});
+App.Helpers.Collection     = Uit.Collection.extend({});
+App.Helpers.Router         = Uit.Router.extend({
+    initialize     : function(){
+        Uit.Router.prototype.initialize.call(this);
+        this.token      = '';
+        var sessionData = localStorage.getItem('currentSessionData');
+        if(!_.isNull(sessionData)){
+            var session = JSON.parse(sessionData);
+            for(var key in session){
+                if(session.hasOwnProperty(key)){
+                    sessionStorage.setItem(key, session[key]);
+                }
+            }
+        }
+    },
+    execute        : function(){
+        this.beforeEach();
+        this._persistMenu();
+        Uit.Router.prototype.execute.apply(this, arguments);
+    },
+    beforeEach     : function(){
+        if(App.loginModel.isLogin()){
+            this._header();
+            this._sidebar();
+            this._footer();
+            this._sidebarControl();
+            $('.wrapper').removeClass('hidden');
+        }else{
+            this._login();
+            $('.login-box').removeClass('hidden');
+        }
+        return this;
+    },
+    _header        : function(){
+        if(App.Helpers.checkViewExist('header') === false){
+            var header = new App.Views.Base.Header({model: App.loginModel});
+            App.Helpers.html(header, '.main-header');
+        }
+    },
+    _sidebar       : function(){
+        if(App.Helpers.checkViewExist('main_sidebar') === false){
+            var sidebar = new App.Views.Base.MainSidebar({model: App.loginModel});
+            App.Helpers.html(sidebar, '.main-sidebar');
+        }
+    },
+    _footer        : function(){
+        if(App.Helpers.checkViewExist('footer') === false){
+            var footer = new App.Views.Base.Footer({cacheHash: App.CacheHash});
+            App.Helpers.html(footer, '.main-footer');
+        }
+    },
+    _sidebarControl: function(){
+        if(App.Helpers.checkViewExist('sidebar_control') === false){
+            var sidebarControl = new App.Views.Base.SidebarControl({cacheHash: App.CacheHash});
+            App.Helpers.after(sidebarControl, '.main-footer');
+        }
+    },
+    _login         : function(){
+        if(App.loginModel.isLogin()){
+            Backbone.history.navigate('profile', {trigger: true});
+        }else{
+            var model = App.loginModel;
+            var login = new App.Views.Session.Login({model: model});
+            App.Helpers.html(login, '.login-box');
+        }
+    },
+    _persistMenu   : function(){
+        var hash   = window.location.hash,
+            split  = hash.split('/'),
+            parent = split[0],
+            li     = $('[href="' + parent + '"]').parent();
+        $('.sidebar-menu li').removeClass('active');
+        li.addClass('active');
+    }
+});
+App.Helpers.Modal          = Uit.Modal;
+App.Helpers.html           = Uit.html;
+App.Helpers.after          = Uit.after;
+App.Helpers.checkViewExist = Uit.checkViewExist;
+App.Helpers.append         = Uit.append;
+App.Helpers.prepend        = Uit.prepend;
 
 App.Helpers.View = Uit.View.extend({
     initialize              : function(options){
@@ -663,6 +748,14 @@ App.Helpers.View = Uit.View.extend({
         $.validator.addMethod('password_strength', function(value, element){
             return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,25}$/.test(value);
         });
+        $.extend($.validator.messages, {
+            email   : 'El email no tiene un formato correcto',
+            number  : 'Debe escribir solo números',
+            url     : 'Debe escribir una URL correcta',
+            max     : 'El número máximo es $1',
+            min     : 'El número mínimo es $1',
+            required: 'Este campo es requerido',
+        });
         $.validator.setDefaults({
             showErrors    : function(){
                 var amountOfErrors = this.numberOfInvalids();
@@ -685,118 +778,31 @@ App.Helpers.View = Uit.View.extend({
             errorPlacement: function(error, element){
                 if(element.parents('.input-group').length){
                     element.parents('.input-group').after(error[0]);
-                }
-                else{
+                }else{
                     element.after(error[0]);
                 }
             },
             ignore        : '.password-ignore',
-            groups        : {
-                names: 'doctorID doctorFacilityID'
-            },
+            groups        : {},
             rules         : {},
-            messages      : {
-                identity: {
-                    required: 'El email es requerido',
-                    email   : 'El email no tiene el formato correcto'
-                },
-                password: {
-                    required: 'La contraseña es requerida'
-                }
-            }
+            messages      : {}
         });
     },
     showAllEntities         : function(e){
-        this.currentTargetArrow = e;
         var spinner             = '<i class="fa fa-circle-o-notch fa-spin"></i>';
         $(e.currentTarget).html(spinner);
         App.Helpers.showAllEntities(e, this.$el);
+    },
+    addHeader: function(options){
+        let self = this,
+            header = options.header || '',
+            description = options.description || '';
+        if(!_.isUndefined(self.className)){
+            var template = new App.Views.Shared.ContentHeader({header:header, description: description});
+            App.Helpers.prepend(template, '.' + self.className);
+        }
     }
 });
-
-App.Helpers.addMask        = Uit.addMask;
-App.Helpers.cleanView      = Uit.cleanView;
-App.Helpers.Model          = Uit.Model.extend({});
-App.Helpers.Collection     = Uit.Collection.extend({});
-App.Helpers.Router         = Uit.Router.extend({
-    initialize     : function(){
-        Uit.Router.prototype.initialize.call(this);
-        this.token      = '';
-        var sessionData = localStorage.getItem('currentSessionData');
-        if(!_.isNull(sessionData)){
-            var session = JSON.parse(sessionData);
-            for(var key in session){
-                if(session.hasOwnProperty(key)){
-                    sessionStorage.setItem(key, session[key]);
-                }
-            }
-        }
-    },
-    execute        : function(){
-        this.beforeEach();
-        this._persistMenu();
-        Uit.Router.prototype.execute.apply(this, arguments);
-    },
-    beforeEach     : function(){
-        if(App.loginModel.isLogin()){
-            this._header();
-            this._sidebar();
-            this._footer();
-            this._sidebarControl();
-            $('.wrapper').removeClass('hidden');
-        }else{
-            this._login();
-            $('.login-box').removeClass('hidden');
-        }
-        return this;
-    },
-    _header        : function(){
-        if(App.Helpers.checkViewExist('header') === false){
-            var header = new App.Views.Base.Header({model: App.loginModel});
-            App.Helpers.htmlView(header, '.main-header');
-        }
-    },
-    _sidebar       : function(){
-        if(App.Helpers.checkViewExist('main_sidebar') === false){
-            var sidebar = new App.Views.Base.MainSidebar({model: App.loginModel});
-            App.Helpers.htmlView(sidebar, '.main-sidebar');
-        }
-    },
-    _footer        : function(){
-        if(App.Helpers.checkViewExist('footer') === false){
-            var footer = new App.Views.Base.Footer({cacheHash: App.CacheHash});
-            App.Helpers.htmlView(footer, '.main-footer');
-        }
-    },
-    _sidebarControl: function(){
-        if(App.Helpers.checkViewExist('sidebar_control') === false){
-            var sidebarControl = new App.Views.Base.SidebarControl({cacheHash: App.CacheHash});
-            App.Helpers.after(sidebarControl, '.main-footer');
-        }
-    },
-    _login         : function(){
-        if(App.loginModel.isLogin()){
-            Backbone.history.navigate('profile', {trigger: true});
-        }else{
-            var model = App.loginModel;
-            var login = new App.Views.Session.Login({model: model});
-            App.Helpers.htmlView(login, '.login-box');
-        }
-    },
-    _persistMenu   : function(){
-        var hash   = window.location.hash,
-            split  = hash.split('/'),
-            parent = split[0],
-            li     = $('[href="' + parent + '"]').parent();
-        $('.sidebar-menu li').removeClass('active');
-        li.addClass('active');
-    }
-});
-App.Helpers.Modal          = Uit.Modal;
-App.Helpers.htmlView       = Uit.htmlView;
-App.Helpers.after          = Uit.after;
-App.Helpers.checkViewExist = Uit.checkViewExist;
-App.Helpers.append         = Uit.append;
 
 App.Helpers.Casefriend.Rules = {
     doctorFacilityID     : {

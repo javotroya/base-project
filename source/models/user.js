@@ -1,5 +1,9 @@
 'use strict';
 App.Models.User = App.Helpers.Model.extend({
-    idAttribute   : '',
-    url      : function(){ return '/user'; }
+    url      : function(){
+        if(!_.isUndefined(this.id)){
+            return `/user/${this.id}`;
+        }
+        return '/user';
+    }
 });
