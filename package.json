@@ -22,6 +22,7 @@
     "grunt-contrib-jshint": "^1.0.0",
     "grunt-contrib-jst": "^1.0.0",
     "grunt-contrib-uglify": "^0.4.1",
+    "grunt-generate": "^0.3.2",
     "jshint-stylish": "^1.0.0"
   }
 }
