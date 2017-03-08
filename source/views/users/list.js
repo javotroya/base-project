@@ -24,6 +24,6 @@ App.Views.Users.List = App.Helpers.View.extend({
     },
     editUser: function(e){
         let userID = $(e.currentTarget).data('user-id');
-        Backbone.history.navigate(`user/edit/${userID}`, {trigger: true});
+        Backbone.history.navigate(`user/profile/${userID}`, {trigger: true});
     }
 });

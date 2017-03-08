@@ -25,6 +25,11 @@ class Generate extends CI_Controller {
 	}
 
 	public function view($value) {
+		$uri = str_replace('generate/view/', '', $this->uri->uri_string());
+		$explode_uri = explode('/', $uri);
+		if(count($explode_uri) > 1){
+			$value = $uri;
+		}
 		$path = FCPATH . 'source/views/';
 		if (in_array($value, $this->help_request)) {
 			$help_text = $this->cli_colors->string("Use este script para generar vistas relativas a {$path}", 'blue', null, true);

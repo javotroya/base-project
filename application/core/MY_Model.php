@@ -24,7 +24,10 @@ class MY_Model extends CI_Model{
 	 *
 	 * @return mixed object|array|bool
 	 */
-	public function get($id = null){
+	public function get($id = null, $select = '*'){
+		if($select != '*'){
+			$this->db->select($select);
+		}
 		if($id){
 			$this->db->where($this->_id_attribute, $id);
 		}
@@ -56,9 +59,13 @@ class MY_Model extends CI_Model{
 	 * @param $field_name
 	 * @param null $value
 	 *
+	 * @param null $limit
+	 * @param int $offset
+	 * @param array $order_by
+	 *
 	 * @return mixed array|bool
 	 */
-	public function get_results_by($field_name, $value = null, $limit = null, $offset = 0){
+	public function get_results_by($field_name, $value = null, $limit = null, $offset = 0, $order_by = []){
 		if(is_array($field_name)){
 			$this->db->where($field_name);
 		} else {
@@ -66,6 +73,10 @@ class MY_Model extends CI_Model{
 		}
 		if($limit && is_numeric($limit)){
 			$this->db->limit($limit, $offset);
+		}
+		if(count($order_by)){
+			$direction = isset($order_by[1]) ? $order_by[1] : 'ASC';
+			$this->db->order_by($order_by[0], $direction);
 		}
 		$query = $this->db->get($this->_table);
 		return $query && $query->num_rows() ? $query->result() : false;

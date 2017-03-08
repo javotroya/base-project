@@ -7,6 +7,12 @@
         }
     };
 
+    rivets.formatters.date = function(value){
+        if(value){
+            return moment(value, 'YYYY MM DD').format('MMM') + ', ' + moment(value, 'YYYY MM DD').format('YYYY');
+        }
+    };
+
     rivets.formatters.linebreaksbr = function(value){
         if(value){
             return value.replace(/\n/g, '<br>');

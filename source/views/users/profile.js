@@ -2,17 +2,15 @@
 if (_.isUndefined(App.Views.Users)) {
     App.Views.Users = {};
 }
-App.Views.Users.Edit = App.Helpers.View.extend({
-    template: App.Templates.usersEdit,
-    className: 'UsersEdit',
+App.Views.Users.Profile = App.Helpers.View.extend({
+    template: App.Templates.usersProfile,
+    className: 'UsersProfile',
     initialize: function(options) {
         App.Helpers.View.prototype.initialize.apply(this, [options]);
+        this.user = this.model;
     },
     events: {
         'submit form': 'saveUser'
-    },
-    afterRender: function(){
-
     },
     saveUser: function(e){
         e.preventDefault();
@@ -44,7 +42,7 @@ App.Views.Users.Edit = App.Helpers.View.extend({
             }
         });
     },
-    onClose : function(){
-        Backbone.history.navigate('users', {trigger: false});
+    getSkillColorClass : function(){
+        return `label label-${this.skill.color}`;
     }
 });

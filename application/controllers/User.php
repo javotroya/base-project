@@ -6,30 +6,34 @@ class User extends MY_Controller{
 	const USER_NOT_FOUND = 'No se encontró el usuario';
 	public function __construct() {
 		parent::__construct();
-		$this->load->model('users_model');
+		$models = [
+			'users_model',
+			'user_profile',
+			'user_skills',
+			'user_to_skill',
+			'user_education'
+		];
+		$this->load->model($models);
 		$this->load->helper('form');
 	}
 
 	public function index_get($user_id){
-		$user = $this->users_model->get($user_id);
+		$user = $this->users_model->get($user_id, 'email, first_name, last_name, phone, id');
 		if($user){
-			$skip = [
-				'activation_code',
-				'active',
-				'company',
-				'created_on',
-				'forgotten_password_code',
-				'forgotten_password_time',
-				'id',
-				'ip_address',
-				'last_login',
-				'password',
-				'remember_code',
-				'salt',
-				'username',
-				'password'
-			];
-			$user = prepare_data($user, $skip);
+			$user = prepare_data($user);
+			$user_profile = $this->user_profile->get($user_id);
+			if($user_profile){
+				$user_profile = prepare_data($user_profile);
+				$user = array_merge($user, $user_profile);
+			}
+			$user_skills = $this->user_to_skill->get_user_skills($user_id);
+			if($user_skills){
+				$user['skills'] = $user_skills;
+			}
+			$user_education = $this->user_education->get_results_by('user_id', $user_id, 0, 0, ['date', 'desc']);
+			if($user_education){
+				$user['education'] = $user_education;
+			}
 			$this->response($user, REST_Controller::HTTP_OK);
 		}
 		$this->response(['status' => false, 'message' => self::USER_NOT_FOUND], REST_Controller::HTTP_BAD_REQUEST);

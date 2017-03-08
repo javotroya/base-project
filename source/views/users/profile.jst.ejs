@@ -1,70 +1,38 @@
 <section class="content">
-
     <div class="row">
         <div class="col-md-3">
-
             <!-- Profile Image -->
             <div class="box box-primary">
                 <div class="box-body box-profile">
-                    <img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture">
-
-                    <h3 class="profile-username text-center">Nina Mcintire</h3>
-
-                    <p class="text-muted text-center">Software Engineer</p>
-
-                    <ul class="list-group list-group-unbordered">
-                        <li class="list-group-item">
-                            <b>Followers</b> <a class="pull-right">1,322</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>Following</b> <a class="pull-right">543</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>Friends</b> <a class="pull-right">13,287</a>
-                        </li>
-                    </ul>
-
-                    <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                    <img src="/img/users/1.png" class="profile-user-img img-responsive img-circle" alt="User Image">
+                    <h3 class="profile-username text-center">{user:first_name} {user:last_name}</h3>
+                    <p class="text-muted text-center">{user:company_position}</p>
                 </div>
                 <!-- /.box-body -->
             </div>
             <!-- /.box -->
-
             <!-- About Me Box -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">About Me</h3>
+                    <h3 class="box-title">Sobre {user:first_name}</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
-
-                    <p class="text-muted">
-                        B.S. in Computer Science from the University of Tennessee at Knoxville
+                    <strong><i class="fa fa-book margin-r-5"></i> Educación</strong>
+                    <p class="text-muted" rv-each-education="user:education < :education">
+                            <span class="label label-info">{education.date | date}</span><br>
+                        {education.career} en {education.facility}
                     </p>
-
                     <hr>
-
-                    <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
-
-                    <p class="text-muted">Malibu, California</p>
-
+                    <strong><i class="fa fa-map-marker margin-r-5"></i> Ubicación</strong>
+                    <p class="text-muted">{user:city}, {user:country}   </p>
                     <hr>
-
-                    <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
-
+                    <strong><i class="fa fa-pencil margin-r-5"></i> Habilidades</strong>
                     <p>
-                        <span class="label label-danger">UI Design</span>
-                        <span class="label label-success">Coding</span>
-                        <span class="label label-info">Javascript</span>
-                        <span class="label label-warning">PHP</span>
-                        <span class="label label-primary">Node.js</span>
+                        <span rv-class="getSkillColorClass" rv-each-skill="user:skills < :skills">{skill.name}</span>&nbsp;
                     </p>
-
                     <hr>
-
-                    <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
-
+                    <strong><i class="fa fa-file-text-o margin-r-5"></i> Notas</strong>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
                 </div>
                 <!-- /.box-body -->
@@ -84,7 +52,7 @@
                         <!-- Post -->
                         <div class="post">
                             <div class="user-block">
-                                <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image">
+                                <img class="img-circle img-bordered-sm" src="/img/users/1.png" alt="user image">
                                 <span class="username">
                           <a href="#">Jonathan Burke Jr.</a>
                           <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
@@ -115,7 +83,7 @@
                         <!-- Post -->
                         <div class="post clearfix">
                             <div class="user-block">
-                                <img class="img-circle img-bordered-sm" src="../../dist/img/user7-128x128.jpg" alt="User Image">
+                                <img class="img-circle img-bordered-sm" src="/img/users/1.png" alt="User Image">
                                 <span class="username">
                           <a href="#">Sarah Ross</a>
                           <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
@@ -147,7 +115,7 @@
                         <!-- Post -->
                         <div class="post">
                             <div class="user-block">
-                                <img class="img-circle img-bordered-sm" src="../../dist/img/user6-128x128.jpg" alt="User Image">
+                                <img class="img-circle img-bordered-sm" src="/img/users/1.png" alt="User Image">
                                 <span class="username">
                           <a href="#">Adam Jones</a>
                           <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
@@ -157,21 +125,21 @@
                             <!-- /.user-block -->
                             <div class="row margin-bottom">
                                 <div class="col-sm-6">
-                                    <img class="img-responsive" src="../../dist/img/photo1.png" alt="Photo">
+                                    <img class="img-responsive" src="/img/users/1.png" alt="Photo">
                                 </div>
                                 <!-- /.col -->
                                 <div class="col-sm-6">
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <img class="img-responsive" src="../../dist/img/photo2.png" alt="Photo">
+                                            <img class="img-responsive" src="/img/users/1.png" alt="Photo">
                                             <br>
-                                            <img class="img-responsive" src="../../dist/img/photo3.jpg" alt="Photo">
+                                            <img class="img-responsive" src="/img/users/1.png" alt="Photo">
                                         </div>
                                         <!-- /.col -->
                                         <div class="col-sm-6">
-                                            <img class="img-responsive" src="../../dist/img/photo4.jpg" alt="Photo">
+                                            <img class="img-responsive" src="/img/users/1.png" alt="Photo">
                                             <br>
-                                            <img class="img-responsive" src="../../dist/img/photo1.png" alt="Photo">
+                                            <img class="img-responsive" src="/img/users/1.png" alt="Photo">
                                         </div>
                                         <!-- /.col -->
                                     </div>

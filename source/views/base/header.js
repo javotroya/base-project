@@ -10,7 +10,5 @@ App.Views.Base.Header = App.Helpers.View.extend({
     initialize: function(options) {
         App.Helpers.View.prototype.initialize.apply(this, [options]);
     },
-    events: {
-
-    }
+    events: {}
 });

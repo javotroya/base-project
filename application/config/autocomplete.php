@@ -41,10 +41,15 @@
  * @property CI_Jquery $jquery                    Jquery Class
  * @property CI_Utf8 $utf8                        Provides support for UTF-8 environments
  * @property CI_Security $security                Security Class, xss, csrf, etc...
+ * @property REST_Controller $rest_controller
  * @property Cli_colors $cli_colors
  * @property Ion_auth $ion_auth
  * @property Ion_auth_model $ion_auth_model
  * @property Users_model $users_model
+ * @property User_profile $user_profile
+ * @property User_skills $user_skills
+ * @property User_to_skill $user_to_skill
+ * @property User_education $user_education
  *
  */
 class CI_Controller{}
@@ -91,9 +96,13 @@ class MY_Controller extends CI_Controller {};
  * @property CI_Jquery $jquery                    Jquery Class
  * @property CI_Utf8 $utf8                        Provides support for UTF-8 environments
  * @property CI_Security $security                Security Class, xss, csrf, etc...
+ * @property REST_Controller $rest_controller
  * @property Cli_colors $cli_colors
  * @property Ion_auth $ion_auth
  * @property Ion_auth_model $ion_auth_model
  * @property Users_model $users_model
+ * @property User_profile $user_profile
+ * @property User_to_skill $user_to_skill
+ * @property User_education $user_education
  */
 class CI_Model {};

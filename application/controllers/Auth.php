@@ -27,10 +27,10 @@ class Auth extends MY_Controller {
 			$remember = (bool) $post_vars->remember;
 			if ($this->ion_auth->login($post_vars->identity, $post_vars->password, $remember)) {
 				$this->load->model('users_model');
-				$user = $this->users_model->get_by('email', $post_vars->identity);
+				$user = $this->users_model->get_one_by('email', $post_vars->identity);
 				if($user){
-					$user[0]->acl = ['can_login' => true];
-					$this->response($user[0], REST_Controller::HTTP_OK);
+					$user->acl = ['can_login' => true];
+					$this->response($user, REST_Controller::HTTP_OK);
 				}
 				$response = [
 					'status' => false,

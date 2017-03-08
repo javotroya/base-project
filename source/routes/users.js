@@ -2,21 +2,21 @@
 App.Router.Users = App.Helpers.Router.extend({
     className: 'Users',
     routes   : {
-        'users' : 'list',
-        'user/edit/:userID'  : 'edit'
+        'users'               : 'list',
+        'user/profile/:userID': 'profile',
+        'user/profile'        : 'profile'
     },
-    list : function(){
+    list     : function(){
         let collection = new App.Collections.Users(),
-            view = new App.Views.Users.List({collection:collection});
+            view       = new App.Views.Users.List({collection: collection});
         App.Helpers.html(view, '.content-wrapper');
         collection.fetch();
     },
-    edit: function(userID){
-        if($('.UsersList').length === 0){
-            this.list();
-        }
-        let model = new App.Models.User({id:userID}),
-            view = new App.Views.Users.Edit({model:model});
+    profile  : function(userID){
+        userID = userID || parseInt(sessionStorage.getItem('id'), 10);
+        let view, model;
+        model  = new App.Models.User({id: userID});
+        view   = new App.Views.Users.Profile({model: model});
         App.Helpers.html(view, '.content-wrapper');
         model.fetch();
     }
