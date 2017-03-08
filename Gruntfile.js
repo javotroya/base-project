@@ -231,6 +231,18 @@ module.exports = function(grunt){
                     {src: ['source/prod/main.css'], dest: 'source/prod/main.css.gz'},
                 ]
             }
+        },
+        generate: {
+            options: {
+                src : 'templates',
+                dest: 'source',
+                map: {
+                    'Collection' : 'collections',
+                    'Model' : 'models',
+                    'Route' : 'routes',
+                    'View'  : 'views/:dir'
+                }
+            }
         }
     });
 
@@ -243,9 +255,8 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-generate');
 
-    // Default task(s).
-    // grunt.registerTask('default', ['sass:ae', 'sass:admin', 'jshint', 'jst', 'watch']);
     grunt.registerTask('default', ['sass:ae', 'jshint:ae', 'jst:ae', 'watch']);
     grunt.registerTask('prod', ['jst', 'babel', 'uglify', 'cssmin', 'sass:prod', 'compress']);
 };
