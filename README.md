@@ -1,9 +1,14 @@
-# Base setup project with BackboneJS and Codeigniter using UIT.js
+# Ribs
+
+A complete framework application development using [Codeigniter](https://codeigniter.com/), [BackboneJS](http://backbonejs.org/) & [RivetsJS](http://rivetsjs.com/).
 
 * Clone repository
 * Run ```npm install```
 * Run ```bower install```
+* Setup CodeIgniter's database connection
+* Run ```grunt```
 * Start development
+
 
 ## Generate BackboneJS components
 
