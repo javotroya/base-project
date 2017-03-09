@@ -53,6 +53,10 @@ class Auth extends MY_Controller {
 		}
 	}
 
+	public function check_get(){
+		$this->response($this->ion_auth->logged_in(), REST_Controller::HTTP_OK);
+	}
+
 	public function logout_get() {
 		$this->ion_auth->logout();
 		$this->response([], REST_Controller::HTTP_OK);

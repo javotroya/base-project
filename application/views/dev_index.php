@@ -76,6 +76,20 @@ read_and_print_js("{$path}source/routes"); ?>
 <script type="text/javascript" src="source/theme/plugins/data-tables/dataTables.bootstrap.js"></script>
 <!-- Start Application -->
 <script type="text/javascript">
+    $.ajax({
+        url: "/auth/check",
+        success: function (response) {
+            if(!response && App.loginModel.isLogin()){
+                if (App.loginModel.storage()) {
+                    sessionStorage.clear();
+                }
+                App.loginModel.clear();
+                localStorage.removeItem('currentSessionData');
+                localStorage.clear();
+                window.location = window.location.origin;
+            }
+        }
+    });
     Backbone.history.start({pushState: false});
     window.customRivets = true;
 </script>
