@@ -237,10 +237,10 @@ module.exports = function(grunt){
                 src : 'templates',
                 dest: 'source',
                 map: {
-                    'Collection' : 'collections',
-                    'Model' : 'models',
-                    'Route' : 'routes',
-                    'View'  : 'views/:dir'
+                    'collection' : 'collections',
+                    'model' : 'models',
+                    'route' : 'routes',
+                    'view'  : 'views/:dir'
                 }
             }
         }
