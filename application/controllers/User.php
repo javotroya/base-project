@@ -23,7 +23,7 @@ class User extends MY_Controller{
 			$user = prepare_data($user);
 			$user_profile = $this->user_profile->get($user_id);
 			if($user_profile){
-				$user_profile = prepare_data($user_profile);
+				$user_profile = prepare_data($user_profile, ['password']);
 				$user = array_merge($user, $user_profile);
 			}
 			$user_skills = $this->user_to_skill->get_user_skills($user_id);
